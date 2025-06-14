@@ -1,4 +1,4 @@
-name: 🚀 Preprocessing Workflow
+name: preprocess
 
 on:
   push:
@@ -7,23 +7,28 @@ on:
     branches: [ main ]
 
 jobs:
-  preprocessing:
+  preprocess:
     runs-on: ubuntu-latest
 
     steps:
-      - name: ⬇️ Checkout repository
+      - name: ⬇️ Checkout Repository
         uses: actions/checkout@v3
 
-      - name: 🐍 Set up Python 3.11
+      - name: 🐍 Set Up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
 
-      - name: 📦 Install dependencies from requirements.txt
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+      - name: 📦 Install Dependencies
+        run: pip install -r preprocessing/requirements.txt
 
-      - name: 🚀 Run preprocessing script
+      - name: 🚀 Run Preprocessing Script
+        run: python preprocessing/automate_nurfadilah.py
+
+      - name: 📝 Commit Preprocessed Dataset (Jika Ada)
         run: |
-          python preprocessing/automate_nurfadilah.py
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add .
+          git commit -m "Add preprocessed data [CI skip]" || echo "No changes to commit"
+          git push
