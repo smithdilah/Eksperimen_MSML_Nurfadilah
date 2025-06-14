@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ main, master ]
 
+permissions:
+  contents: write  # ⬅️ Wajib agar github-actions bisa push
+
 jobs:
   preprocess:
     runs-on: ubuntu-latest
@@ -31,4 +34,4 @@ jobs:
           git config --global user.email "github-actions@github.com"
           git add .
           git commit -m "Add preprocessed data [CI skip]" || echo "No changes to commit"
-          git push
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
