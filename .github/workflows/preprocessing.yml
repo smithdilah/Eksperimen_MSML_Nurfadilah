@@ -1,4 +1,4 @@
-name: test
+name: 🚀 Preprocessing Workflow
 
 on:
   push:
@@ -9,17 +9,21 @@ on:
 jobs:
   preprocessing:
     runs-on: ubuntu-latest
+
     steps:
       - name: ⬇️ Checkout repository
         uses: actions/checkout@v3
 
-      - name: 🐍 Set up Python
+      - name: 🐍 Set up Python 3.11
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
 
-      - name: 📦 Install dependencies
-        run: pip install -r requirements.txt
+      - name: 📦 Install dependencies from requirements.txt
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
       - name: 🚀 Run preprocessing script
-        run: python preprocessing/automate_nurfadilah.py
+        run: |
+          python preprocessing/automate_nurfadilah.py
