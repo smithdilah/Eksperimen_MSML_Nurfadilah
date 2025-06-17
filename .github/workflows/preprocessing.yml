@@ -7,28 +7,28 @@ on:
     branches: [ main, master ]
 
 permissions:
-  contents: write  # ⬅️ Wajib agar github-actions bisa push
+  contents: write  #  Wajib agar github-actions bisa push
 
 jobs:
   preprocess:
     runs-on: ubuntu-latest
 
     steps:
-      - name: ⬇️ Checkout Repository
+      - name:  Checkout Repository
         uses: actions/checkout@v3
 
-      - name: 🐍 Set Up Python
+      - name:  Set Up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
 
-      - name: 📦 Install Dependencies
+      - name:  Install Dependencies
         run: pip install -r preprocessing/requirements.txt
 
-      - name: 🚀 Run Preprocessing Script
+      - name:  Run Preprocessing Script
         run: python preprocessing/automate_nurfadilah.py
 
-      - name: 📝 Commit Preprocessed Dataset (Jika Ada)
+      - name:  Commit Preprocessed Dataset (Jika Ada)
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
